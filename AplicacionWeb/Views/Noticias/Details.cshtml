@@ -1,0 +1,68 @@
+﻿@model AplicacionWeb.Models.Noticias
+
+@{
+    ViewBag.Title = "Detalle de Noticia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var roles = Session["Roles"] as List<string> ?? new List<string>();
+    bool esEditor = roles.Contains("Editor");
+    bool esAdmin = roles.Contains("Admin");
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <img src="@Url.Content("~/Content/Imagenes/" + Model.Imagen_Ruta)" class="card-img-top" alt="Imagen de la noticia" style="max-height:400px; object-fit:cover;">
+        <div class="card-body">
+            <h2 class="card-title">@Model.Titulo</h2>
+            <p class="text-muted">
+                Publicado el @Model.Fecha_Publicacion.ToShortDateString()
+                @if (!string.IsNullOrEmpty(Model.Categoria))
+                {
+                    <span class="badge bg-secondary ms-2">@Model.Categoria</span>
+                }
+            </p>
+            <hr />
+            <p class="card-text" style="white-space: pre-wrap;">@Model.Contenido</p>
+
+            <a href="@Url.Action("Index", "Noticias")" class="btn btn-outline-primary mt-3">
+                ← Volver al listado
+            </a>
+
+            @if (esEditor || esAdmin)
+            {
+                <a href="@Url.Action("Edit", "Noticias", new { id = Model.Id_Noticia })" class="btn btn-warning mt-3 ms-2">Editar</a>
+            }
+            @if (esAdmin)
+            {
+                <a href="@Url.Action("Delete", "Noticias", new { id = Model.Id_Noticia })" class="btn btn-danger mt-3 ms-2">Eliminar</a>
+            }
+
+            @if (ViewBag.Relacionadas != null && ((List<AplicacionWeb.Models.Noticias>)ViewBag.Relacionadas).Any())
+            {
+                <hr class="my-5" />
+                <h4>También te puede interesar:</h4>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mt-3">
+                    @foreach (var rel in (List<AplicacionWeb.Models.Noticias>)ViewBag.Relacionadas)
+                    {
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="@Url.Content("~/Content/Imagenes/" + rel.Imagen_Ruta)" class="card-img-top" alt="Relacionada" style="height:150px; object-fit:cover;">
+                                <div class="card-body">
+                                    <h6 class="card-title">@rel.Titulo</h6>
+                                    <p class="card-text">
+                                        @rel.Contenido.Substring(0, Math.Min(70, rel.Contenido.Length))...
+                                    </p>
+                                    <a href="@Url.Action("Details", "Noticias", new { id = rel.Id_Noticia })" class="btn btn-sm btn-outline-primary">
+                                        Ver más
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

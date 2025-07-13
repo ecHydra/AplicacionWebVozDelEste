@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AplicacionWeb.Models.Programas>
+
+@{
+    ViewBag.Title = "Programas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var roles = Session["Roles"] as List<string> ?? new List<string>();
+    bool esEditor = roles.Contains("Editor");
+    bool esAdmin = roles.Contains("Admin");
+}
+
+<h2>Listado de Programas</h2>
+
+@if (esEditor || esAdmin)
+{
+    <p>
+        @Html.ActionLink("Crear nuevo programa", "Create", null, new { @class = "btn btn-success" })
+    </p>
+}
+
+<table class="table table-striped">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Nombre_Programa)</th>
+        <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+        <th>@Html.DisplayNameFor(model => model.Horario)</th>
+        <th>@Html.DisplayNameFor(model => model.Imagen_Ruta)</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Nombre_Programa)</td>
+            <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+            <td>@Html.DisplayFor(modelItem => item.Horario)</td>
+            <td>@item.Imagen_Ruta</td>
+            <td>
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id_Programa })
+
+                @if (esEditor || esAdmin)
+                {
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id_Programa })
+                }
+
+                @if (esAdmin)
+                {
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id_Programa })
+                }
+            </td>
+        </tr>
+    }
+</table>

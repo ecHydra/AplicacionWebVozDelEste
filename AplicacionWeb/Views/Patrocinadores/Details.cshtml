@@ -1,0 +1,34 @@
+﻿@model AplicacionWeb.Models.Patrocinadores
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Patrocinadores</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre_Patrocinador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Patrocinador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Veces_Por_Dia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Veces_Por_Dia)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Patrocinador }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

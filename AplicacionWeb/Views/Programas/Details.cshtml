@@ -1,0 +1,41 @@
+﻿@model AplicacionWeb.Models.Programas
+
+@{
+    ViewBag.Title = "Detalles del Programa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var roles = Session["Roles"] as List<string> ?? new List<string>();
+    bool esEditor = roles.Contains("Editor");
+    bool esAdmin = roles.Contains("Admin");
+}
+
+<h2>@Model.Nombre_Programa</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>Descripción</dt>
+        <dd>@Model.Descripcion</dd>
+
+        <dt>Horario</dt>
+        <dd>@Model.Horario</dd>
+
+        <dt>Imagen</dt>
+        <dd>@Model.Imagen_Ruta</dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Volver", "Index")
+
+    @if (esEditor || esAdmin)
+    {
+        @Html.Raw(" | ")
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Id_Programa })
+    }
+
+    @if (esAdmin)
+    {
+        @Html.Raw(" | ")
+        @Html.ActionLink("Eliminar", "Delete", new { id = Model.Id_Programa })
+    }
+</p>

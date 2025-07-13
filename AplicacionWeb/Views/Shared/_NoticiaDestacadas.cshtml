@@ -1,0 +1,37 @@
+﻿@model List<AplicacionWeb.Models.Noticias>
+
+@if (Model.Count < 4)
+{
+    <div class="alert alert-warning">No hay suficientes noticias para mostrar la portada.</div>
+}
+else
+{
+    <h5 class="fw-bold border-bottom pb-2">Portada</h5>
+
+    <div class="grid-portada-especial">
+        <div class="noticia-card" style="grid-area: a;">
+            <div class="noticia-img" style="background-image: url('@Url.Content("~/Content/Imagenes/" + Model[0].Imagen_Ruta)')"></div>
+            <div class="noticia-overlay">
+                <h5>@Model[0].Titulo</h5>
+            </div>
+        </div>
+        <div class="noticia-card" style="grid-area: b;">
+            <div class="noticia-img" style="background-image: url('@Url.Content("~/Content/Imagenes/" + Model[1].Imagen_Ruta)')"></div>
+            <div class="noticia-overlay">
+                <h5>@Model[1].Titulo</h5>
+            </div>
+        </div>
+        <div class="noticia-card" style="grid-area: c;">
+            <div class="noticia-img" style="background-image: url('@Url.Content("~/Content/Imagenes/" + Model[2].Imagen_Ruta)')"></div>
+            <div class="noticia-overlay">
+                <h5>@Model[2].Titulo</h5>
+            </div>
+        </div>
+        <div class="noticia-card" style="grid-area: d;">
+            <div class="noticia-img" style="background-image: url('@Url.Content("~/Content/Imagenes/" + Model[3].Imagen_Ruta)')"></div>
+            <div class="noticia-overlay">
+                <h5>@Model[3].Titulo</h5>
+            </div>
+        </div>
+    </div>
+}

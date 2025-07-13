@@ -1,0 +1,142 @@
+﻿@{
+    var nombreUsuario = Session["UsuarioNombre"] as string;
+    var roles = Session["Roles"] as List<string> ?? new List<string>();
+    bool esAdmin = roles.Contains("Admin");
+    bool esEditor = roles.Contains("Editor");
+    bool esUsuario = roles.Contains("Usuario");
+    bool logueado = !string.IsNullOrEmpty(nombreUsuario);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Voz Del Este</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/climaHeader.js"></script>
+    @RenderSection("scripts", required: false)
+
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        .background-radial {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: radial-gradient(125% 125% at 50% 10%, #fff 40%, #6366f1 100%);
+        }
+
+        .foreground {
+            position: relative;
+            z-index: 1;
+        }
+
+        .body-content {
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-radial"></div>
+
+    <div class="foreground">
+        <div class="bg-light px-3 py-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img src="@Url.Content("~/Content/Imagenes/Logo3.png")" alt="Logo" style="height: 80px;" class="me-2" />
+                    <h3 class="mb-0">La radio que te acompaña cada día</h3>
+                </div>
+                <div class="d-flex flex-column align-items-end">
+                    <div class="d-flex align-items-center text-dark small fw-bold mb-2">
+                        <div>@DateTime.Now.ToString("dddd dd 'de' MMMM", new System.Globalization.CultureInfo("es-ES"))</div>
+                        <div id="clima" class="ms-3 text-dark small">Cargando clima...</div>
+                    </div>
+                    <a href="https://link-a-tu-radio.com" class="btn btn-dark">
+                        <i class="bi bi-mic me-2"></i> Escuchar en Vivo
+                    </a>
+                </div>
+            </div>
+        </div>
+        @if (Session["UsuarioNombre"] == null)
+        {
+            <div class="bg-light py-2 px-4 d-flex justify-content-end">
+                <a href="@Url.Action("Index", "Login")" class="btn btn-outline-dark">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar Sesión
+                </a>
+            </div>
+        }
+        <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Home")">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Noticias")">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Programas")">Programación</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Clima", "Home")">Clima</a></li>
+                        @if (logueado && esAdmin)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Patrocinadores")">Patrocinadores</a></li>
+                        }
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        @if (logueado)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                                    @nombreUsuario
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    @if (esAdmin)
+                                    {
+                                        <li><a class="dropdown-item" href="@Url.Action("Index", "Usuarios")">Gestión de Usuarios</a></li>
+                                        <li><a class="dropdown-item" href="@Url.Action("Index", "Roles")">Gestión de Roles</a></li>
+                                        <li><a class="dropdown-item" href="@Url.Action("Index", "Permisos")">Gestión de Permisos</a></li>
+                                    }
+                                    @if (esAdmin || esEditor)
+                                    {
+                                        <li><a class="dropdown-item" href="@Url.Action("Index", "Noticias")">Editar Noticias</a></li>
+                                        <li><a class="dropdown-item" href="@Url.Action("Index", "Programas")">Editar Programas</a></li>
+                                    }
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item text-danger" href="@Url.Action("Logout", "Login")">Cerrar Sesión</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-outline-dark" href="@Url.Action("Index", "Login")">Iniciar Sesión</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer></footer>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

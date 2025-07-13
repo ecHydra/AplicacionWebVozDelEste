@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cdab5ba028e14c889ce0dec77f5fd60a" Name="Diagram1">
+        <EntityTypeShape EntityType="Prueba2Model.Clientes" Width="1.5" PointX="7.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prueba2Model.ComentariosCliente" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prueba2Model.Conductores" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prueba2Model.Noticias" Width="1.5" PointX="7.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prueba2Model.Patrocinadores" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prueba2Model.Permisos" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prueba2Model.Programas" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prueba2Model.Roles" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prueba2Model.Usuarios" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="Prueba2Model.FK__Clientes__Id_Usu__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="Prueba2Model.FK__Comentari__Id_Pr__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="Prueba2Model.FK__Comentari__Id_Us__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="Prueba2Model.ProgramaConductores" ManuallyRouted="false" />
+        <AssociationConnector Association="Prueba2Model.RolPermisos" ManuallyRouted="false" />
+        <AssociationConnector Association="Prueba2Model.UsuarioRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="Prueba2Model.FK_Usuarios_Roles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

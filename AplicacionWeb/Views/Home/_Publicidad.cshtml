@@ -1,0 +1,47 @@
+﻿@model List<AplicacionWeb.Models.Patrocinadores>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div id="carruselPublicidad" class="carousel slide carrusel-publicidad" data-bs-ride="carousel" data-bs-interval="4000">
+        <div class="carousel-inner">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var p = Model[i];
+                <div class="carousel-item @(i == 0 ? "active" : "")">
+                    @if (!string.IsNullOrEmpty(p.Url))
+                    {
+                        <a href="@p.Url" target="_blank">
+                            <img src="@Url.Content("~/Content/Imagenes/" + p.Imagen_Ruta)"
+                                 alt="@p.Nombre_Patrocinador"
+                                 class="d-block w-100" />
+                        </a>
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/Content/Imagenes/" + p.Imagen_Ruta)"
+                             alt="@p.Nombre_Patrocinador"
+                             class="d-block w-100" />
+                    }
+                </div>
+            }
+        </div>
+
+        @if (Model.Count > 1)
+        {
+            <button class="carousel-control-prev" type="button" data-bs-target="#carruselPublicidad" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carruselPublicidad" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        }
+    </div>
+}
+else
+{
+    <div class="carrusel-publicidad vacio">
+        No hay publicidad disponible.
+    </div>
+}

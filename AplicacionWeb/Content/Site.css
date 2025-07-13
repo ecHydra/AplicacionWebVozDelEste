@@ -1,0 +1,368 @@
+﻿/* General layout */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Navbar */
+.navbar-custom {
+    background-color: #0B1F38;
+}
+
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link,
+    .navbar-custom .nav-item {
+        color: white;
+    }
+
+        .navbar-custom .nav-link:hover {
+            color: #dddddd;
+        }
+
+/* Portada */
+.grid-portada-especial {
+    display: grid;
+    grid-template-areas:
+        "a b d"
+        "a c d";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5rem;
+    aspect-ratio: 3 / 2;
+    margin-bottom: 2rem;
+}
+
+    .grid-portada-especial .noticia-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+        background: #000;
+    }
+
+        .grid-portada-especial .noticia-card:hover {
+            transform: scale(1.02);
+        }
+
+.noticia-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.7);
+    transition: filter 0.3s ease;
+}
+
+.noticia-card:hover .noticia-img {
+    filter: brightness(0.5);
+}
+
+.noticia-overlay {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 1rem;
+    transition: bottom 0.4s ease;
+    text-align: center;
+}
+
+.noticia-card:hover .noticia-overlay {
+    bottom: 0;
+}
+
+.noticia-overlay h5 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Áreas del grid */
+.grid-portada-especial .noticia-card[style*="grid-area: a"] {
+    grid-area: a;
+}
+
+.grid-portada-especial .noticia-card[style*="grid-area: b"] {
+    grid-area: b;
+}
+
+.grid-portada-especial .noticia-card[style*="grid-area: c"] {
+    grid-area: c;
+}
+
+.grid-portada-especial .noticia-card[style*="grid-area: d"] {
+    grid-area: d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grid-portada-especial {
+        grid-template-areas:
+            "a"
+            "b"
+            "c"
+            "d";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        aspect-ratio: auto;
+    }
+}
+/* Publicidad */
+.carrusel-publicidad {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    background: white;
+    border-radius: 6px;
+}
+
+    .carrusel-publicidad .carousel-inner {
+        width: 100%;
+        height: 100%;
+    }
+
+    .carrusel-publicidad .carousel-item {
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 2.0s ease-in-out;
+    }
+
+    .carrusel-publicidad img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+        .carrusel-publicidad img:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease-in-out;
+        }
+
+    .carrusel-publicidad.vacio {
+        text-align: center;
+        background: #0B1F38;
+        color: white;
+        font-weight: bold;
+        padding: 1rem;
+        border-radius: 6px;
+    }
+
+
+/* Clima */
+.titulo-clima {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    color: #222;
+}
+
+.contenedor-clima {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.tarjeta-clima {
+    width: 180px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.lluvioso {
+    background: linear-gradient(to bottom, #d0e6f7, #a4c4e3);
+}
+
+.lluvia {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.gota {
+    width: 2px;
+    height: 12px;
+    background: rgba(0,0,255,0.4);
+    position: absolute;
+    top: -15px;
+    animation: caer 1s linear infinite;
+}
+
+@keyframes caer {
+    to {
+        transform: translateY(200px);
+        opacity: 0;
+    }
+}
+
+.soleado {
+    background: linear-gradient(to bottom, #fff4b0, #fceabb);
+}
+
+.sol {
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #ffd700, #ffa500);
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+    animation: girar 6s linear infinite;
+}
+
+@keyframes girar {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.nublado {
+    background: linear-gradient(to bottom, #f0f0f0, #dcdcdc);
+}
+
+.nube {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 60px;
+    height: 30px;
+    background: #ccc;
+    border-radius: 30px;
+    box-shadow: 20px 0 #ccc, 40px 0 #ccc;
+    animation: flotar 5s ease-in-out infinite alternate;
+}
+
+@keyframes flotar {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(10px);
+    }
+}
+
+.ventoso {
+    background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+    overflow: hidden;
+}
+
+.viento {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.hoja {
+    width: 12px;
+    height: 12px;
+    background: #6c5;
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
+    animation: volar 4s linear infinite;
+}
+
+@keyframes volar {
+    to {
+        transform: translate(100px, 200px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.tormentoso {
+    background: linear-gradient(to bottom, #2c3e50, #000);
+    color: white;
+    position: relative;
+}
+
+.rayo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: white;
+    opacity: 0;
+    animation: relampago 4s infinite;
+}
+
+@keyframes relampago {
+    0%, 97%, 100% {
+        opacity: 0;
+    }
+
+    98% {
+        opacity: 1;
+    }
+
+    99% {
+        opacity: 0.2;
+    }
+}
+
+.clima-actual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+    .clima-actual img {
+        width: 60px;
+    }
+
+.contenedor-pronostico {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.tarjeta-dia {
+    background: #f2f2f2;
+    padding: 1rem;
+    border-radius: 10px;
+    width: 140px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+    .tarjeta-dia img {
+        width: 50px;
+    }
